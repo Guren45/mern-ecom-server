@@ -1,21 +1,22 @@
-import express from "express";
-import { connectDB } from "./utils/features.js";
-import { errorMiddleware } from "./middlewares/error.js";
-import NodeCache from "node-cache";
-import { config } from "dotenv";
-import morgan from "morgan";
-import Stripe from "stripe";
-import cors from "cors";
+import express, { Request, Response, NextFunction } from 'express';
+import { connectDB } from './utils/features.js';
+import { errorMiddleware } from './middlewares/error.js';
+import NodeCache from 'node-cache';
+import { config } from 'dotenv';
+import morgan from 'morgan';
+import Stripe from 'stripe';
+import cors from 'cors';
+
 
 // Importing Routes
-import userRoute from "./routes/user.js";
-import productRoute from "./routes/products.js";
-import orderRoute from "./routes/order.js";
-import paymentRoute from "./routes/payment.js";
-import dashboardRoute from "./routes/stats.js";
+import userRoute from './routes/user.js';
+import productRoute from './routes/products.js';
+import orderRoute from './routes/order.js';
+import paymentRoute from './routes/payment.js';
+import dashboardRoute from './routes/stats.js';
 
 config({
-  path: "./.env",
+  path: './.env',
 });
 
 const port = process.env.PORT || 7000;
@@ -30,12 +31,13 @@ export const myCache = new NodeCache();
 const app = express();
 
 app.use(express.json());
-app.use(morgan("dev"));
+app.use(morgan('dev'));
 app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("API Working with /api/v1");
 });
+
 
 // Using Routes
 app.use("/api/v1/user", userRoute);
